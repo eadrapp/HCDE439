@@ -13,12 +13,73 @@
 
         <div class="header">
             <h1>Emma Drapp's A1: Blink!</h1>
-            <p>
-            <img src="red-panda.jpg" width=400></a>
-            </p>
-            <p>
-            Here is all the documentation for assignment 1!
-            </p>
+            <p><span style="text-align: inherit;">Schematic:</span></p>
+            <p><img src="https://lh6.googleusercontent.com/zLCRRbyi6sCkFdCcX1tQ5I2ljMKXrxC3oQ0nNWpJkE-Z8P6KwIpYDniHuhs3WXpL3cKOufkgQodap2e1CSlKLM8mOnxX0QWKZifPL34humRgC1sakB7WGYrbu73DGZUKfcUgPadXmGBRCqMTQbTD-aNSDY5_iLz_PbIZFs0hduJUfDWymUbG0CuG2_b6UQ" width="413" height="549.9752270830803"></p>
+            <p>The schematic for this assignment consists of three different pathways each starting at a pin on the arduino, then going through a 330 Ohm resistor, LED, and then ground.</p>
+            <p><br></p>
+            <p>The resistor used was calculated through the equation V=IR as seen below.&nbsp;</p>
+            <p><img src="https://lh3.googleusercontent.com/vhzjleQ0VlmxEm8tSP0zKtdoRSBAY0YyblqVQJWPsdfUyIO0gm7KwVip2XIHJbvWHAlnrr830SJS0S1gD2gm3asC7spg_h1G5-y03DLjL4yQVWnYwRpaxfD81PuztQLyoK6ZVBBnlTyC2u6keAuX1UGyxCtyXv9AMPI-QxpRNdWVn18z2G91ePozEvIJWg" width="480" height="638.8299817184643"></p>
+            <p><br></p>
+            <p>Circuit:&nbsp;</p>
+            <p>Here is the circuit made from the schematic and calculations above:</p>
+            <p><img src="https://lh3.googleusercontent.com/WPJggHPnETqGX_ctpJGfbGnbsXRx5dvUOmIqMgjVr1RbQhRaZTqA7kUKOCKwjvpdMmsvTd3MlenQlgXhwPPLwtTsCApYqVmKgiVY6QkrVD5Zzf45K_pO-MEnKkCqB9xki7Sypfux7-2Ro4Jx_y9WLKcBx2B-isSf6i1GGsreBbKxbEC3eUq9LNiXmON-YA" width="399" height="530.9376114081997"></p>
+            <p>This is the circuit to birds eye view. The black wires are connecting the breadboard to ground and the red wires are connecting each pathway to its pin.</p>
+            <p><br></p>
+            <p><img src="https://lh5.googleusercontent.com/92EQ2FJryfypc2kyvv4vz7JJKI-4BFxA51-d3Zu8G4tzM8LQpTiKhBjVKuQRzkc6-piTN7oYImNTWUWoZAL6tM8kjRupmKp5Mbw1ud0C6tR5UNX_vPiQG92AX9Zof1rUXNwfE63wXYu19z4bch6LHa_TbusssCzpm_2rUiQfFxBvLN2OGY2O5u9OtLQ6HQ" width="431" height="323"></p>
+            <p>Here is a side view of the circuit in action.</p>
+            <p><br></p>
+            <p>Firmware:</p>
+            <p>Here is the code used for A1: Blink. This code initializes each pin and then runs a redloop, blueloop, then greenloop, each making the light blink for a shorter period of time sequentially.</p>
+            <p>/*</p>
+            <p>&nbsp;A1 Blink</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;This code is based off of the ardunio example blink program and edited to fit the specifications of assignment A1</p>
+            <p>*/</p>
+            <p>&nbsp;</p>
+            <p>// the setup function runs once when you press reset or power the board</p>
+            <p>void&nbsp;setup()&nbsp;{</p>
+            <p>&nbsp;// initialize digital pin 9 as the red LED output.</p>
+            <p>&nbsp;pinMode(9, OUTPUT);</p>
+            <p>&nbsp;// initialize digital pin 10 as the blue LED output.</p>
+            <p>&nbsp;pinMode(10, OUTPUT);</p>
+            <p>&nbsp;// initialize digital pin 11 as the green LED output.</p>
+            <p>&nbsp;pinMode(11, OUTPUT);</p>
+            <p>}</p>
+            <p>&nbsp;</p>
+            <p>// the red loop function makes the red light blink for 1 second</p>
+            <p>void&nbsp;redloop()&nbsp;{</p>
+            <p>&nbsp;digitalWrite(9, HIGH); &nbsp;// turn the red LED on (HIGH is the voltage level)</p>
+            <p>&nbsp;delay(1000); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for a second</p>
+            <p>&nbsp;digitalWrite(9, LOW); &nbsp; // turn the red LED off by making the voltage LOW</p>
+            <p>&nbsp;delay(1000); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for a second</p>
+            <p>}</p>
+            <p>&nbsp;</p>
+            <p>// the blue loop function makes the blue light blink for half a secind</p>
+            <p>void&nbsp;blueloop()&nbsp;{</p>
+            <p>&nbsp;digitalWrite(10, HIGH); &nbsp;// turn the blue LED on (HIGH is the voltage level)</p>
+            <p>&nbsp;delay(500); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for half a second</p>
+            <p>&nbsp;digitalWrite(10, LOW); &nbsp; // turn the blue LED off by making the voltage LOW</p>
+            <p>&nbsp;delay(500); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for half a second</p>
+            <p>}</p>
+            <p>&nbsp;</p>
+            <p>// the green loop function makes the green light blink for 0.1 seconds</p>
+            <p>void&nbsp;greenloop()&nbsp;{</p>
+            <p>&nbsp;digitalWrite(11, HIGH); &nbsp;// turn the green LED on (HIGH is the voltage level)</p>
+            <p>&nbsp;delay(100); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for 0.1 second</p>
+            <p>&nbsp;digitalWrite(11, LOW); &nbsp; // turn the green LED off by making the voltage LOW</p>
+            <p>&nbsp;delay(100); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// wait for 0.1 second</p>
+            <p>}</p>
+            <p>&nbsp;</p>
+            <p>// the &nbsp;loop function runs over and over again forever</p>
+            <p>void&nbsp;loop()&nbsp;{</p>
+            <p>&nbsp;redloop(); &nbsp; // initializes the loop to blink the red LED</p>
+            <p>&nbsp;blueloop(); &nbsp; // initializes the loop to blink the blue LED</p>
+            <p>&nbsp;greenloop(); &nbsp; // initializes the loop to blink the green LED</p>
+            <p>}</p>
+            <p><br></p>
+            <p>Circuit&rsquo;s Operation:</p>
+            <p>Finally, here is a gif showing the circuit in action!</p>
+            <p><br></p>
         </div>
         
     </body>
