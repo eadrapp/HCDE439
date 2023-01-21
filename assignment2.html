@@ -12,13 +12,80 @@
     <body> 
 
         <div class="header">
-            <h1>Emma Drapp's Assignment 2!</h1>
-            <p>
-            <img src="red-panda.jpg" width=400></a>
-            </p>
-            <p>
-            Here is all the documentation for assignment 2!
-            </p>
+            <h1>Emma Drapp's A1: Blink!</h1>
+
+            <b><p>Schematic:</p></b>
+            <p><img src="IMG_5109 Large.jpeg" width="420"></p>
+            <p>The schematic for this assignment consists of three LED pathways each starting at a ~ pin (~9, ~10, & ~11) on the arduino, then going through a 330 Ohm resistor, LED, and then ground and also a button pathway that is connected to the 5V power on the arduino, pin 2, ground, a 10k resistor, and a push button.</p>
+            <br>
+            <p>The resistor used for the push button was calculated through the equation V=IR as seen below, where a 10K resistor was ultimately used. For the LED resistors, the calculation for A1 Blink were referenced.&nbsp;</p>
+            <p><img src="IMG_5110 Large.jpeg" width="500"></p>
+            <br>
+            <b><p>Circuit:&nbsp;</p></b>
+            <p>Here is the circuit made from the schematic and calculations above:</p>
+            <p><img src="IMG_5094 Large.jpeg" width="400"></p>
+            <br>
+            <b><p>Firmware:</p></b>
+            <p>Here is the code used for A2: Fade. This code initializes pins 9, 10, & 11 and then reads pin 2 and runs a fade loop based on the pin 2 reading.</p>
+            <br>
+            <i>
+                <p>/*</p>
+                <p>&nbsp; A2 Fade</p>
+                <p>&nbsp; Note: Thanks for Michelle Weng and David Song for the help</p>
+                <p>*/</p>
+                <p><br></p>
+                <p>void setup() {</p>
+                <p>&nbsp; // initalizes pin 11 for red led</p>
+                <p>&nbsp; pinMode(11, OUTPUT);</p>
+                <p>&nbsp; // initalizes pin 10 for yellow led</p>
+                <p>&nbsp; pinMode(10, OUTPUT);</p>
+                <p>&nbsp; // initalizes pin 9 for green led</p>
+                <p>&nbsp; pinMode(9, OUTPUT);</p>
+                <p>}</p>
+                <p><br></p>
+                <p>void loop() {</p>
+                <p>&nbsp; // initializes variable which is the value of the button:</p>
+                <p>&nbsp; int reading = digitalRead(2);</p>
+                <p>&nbsp; // if the button is unpressed then the following if statement runs</p>
+                <p>&nbsp; if (reading == 0){</p>
+                <p>&nbsp; &nbsp; // for loop to fade leds brighter</p>
+                <p>&nbsp; &nbsp; for (int fadeValue = 0; fadeValue &lt;= 255; fadeValue += 5) {</p>
+                <p>&nbsp; &nbsp; &nbsp; // increasing fade for red led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(11, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // increasing fade for yellow led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(10, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // increasing fade for green led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(9, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // wait for 30 secs for dimming effect</p>
+                <p>&nbsp; &nbsp; &nbsp; delay(30);</p>
+                <p>&nbsp; &nbsp; }</p>
+                <p>&nbsp; &nbsp; // for loop to fade leds dimmer</p>
+                <p>&nbsp; &nbsp; for (int fadeValue = 255; fadeValue &gt;= 0; fadeValue -= 5) {</p>
+                <p>&nbsp; &nbsp; &nbsp; // decreasing fade for red led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(11, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // decreasing fade for yellow led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(10, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // decreasing fade for green led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(9, fadeValue);</p>
+                <p>&nbsp; &nbsp; &nbsp; // wait for 30 secs for dimming effect</p>
+                <p>&nbsp; &nbsp; &nbsp; delay(30);</p>
+                <p>&nbsp; &nbsp; }</p>
+                <p>&nbsp; // turns off led when button is pressed</p>
+                <p>&nbsp; } else {</p>
+                <p>&nbsp; &nbsp; // turns off red led</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(11, 0);</p>
+                <p>&nbsp; &nbsp; // turns off red yellow</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(10, 0);</p>
+                <p>&nbsp; &nbsp; // turns off red green</p>
+                <p>&nbsp; &nbsp; &nbsp; analogWrite(9, 0);</p>
+                <p>&nbsp; }</p>
+                <p>}</p>
+            </i>
+            <br>
+            <b><p>Circuit&rsquo;s Operation:</p></b>
+            <p>Finally, here is a gif showing the circuit in action!</p>
+            <p><img src="a2 gif.gif" width="500"></p>
+            <p><br></p>
         </div>
         
     </body>
