@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Emma Drapp's HCDE 439 Physical Computing Page!</title> 
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head> 
+    <body> 
+
+        <div class="header">
+            <h1>Emma Drapp's A3: Input Output!</h1>
+
+            <b><p>Schematic:</p></b>
+            <p><img src="IMG_5252 Large.jpeg" width="420"></p>
+            <p>The schematic for this assignment consists of two LED pathways each starting at a ~ pin (~6 & ~9) on the arduino, then going through a 330 Ohm resistor, LED, and then ground. Additionally, there is also a photoresistor pathway that is connected to the 5V power on the arduino, pin A0, ground, a 10k resistor, and a photoresistor.</p>
+            <br>
+            <p>A 10k resistor was used for the photoresistor since the photoresistor has a large range so the 10k resistor is able to make the circuit run safely while not effecting the voltage signiticantly. For the LED resistors, the calculation for A1 Blink were referenced.&nbsp;</p>
+            <br>
+            <b><p>Circuit:&nbsp;</p></b>
+            <p>Here is the circuit made from the schematic and calculations above:</p>
+            <p><img src="IMG_5245 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_5244 Large.jpeg" width="400"></p>
+            <br>
+            <b><p>Firmware:</p></b>
+            <p>Here is the code used for A3: Input Output. This code initializes pins 6 and 9 then reads pin A0 and fades the LEDS based on the pin A0 reading.</p>
+            <br>
+            <p>Note: Serial.println was used to print the values from the photoresistor via analogRead using pin A0. This process showed the values ranged from around 400 to 800 as seen in the gif below. Thus, the values used were contstrained to 400-800 so 600 would be the perfect midpoint and switch which LED is on.</p>
+            <p><img src="serialprint.gif" width="500"></p>
+            <br>
+            <i>
+                <p>/*</p>
+                <p>&nbsp; A3 Input Output</p>
+                <p>*/</p>
+                <p><br></p>
+                <p>void setup() {</p>
+                <p>&nbsp; // initalizes pin 6 to fade yellow LED</p>
+                <p>&nbsp; pinMode(6, OUTPUT);</p>
+                <p>&nbsp; // initalizes pin 9 to fade blue LED</p>
+                <p>&nbsp; pinMode(9, OUTPUT);</p>
+                <p>&nbsp; // initalize serial communications at 9600 bps</p>
+                <p>&nbsp; Serial.begin(9600);</p>
+                <p>}</p>
+                <p><br></p>
+                <p>void loop() {</p>
+                <p>&nbsp; // initializes variable which is the value of the photoresistor:</p>
+                <p>&nbsp; int val = analogRead(A0);</p>
+                <p>&nbsp; // prints value of analogRead --&gt; shows that its around 400 to 800</p>
+                <p>&nbsp; Serial.println(val);</p>
+                <p>&nbsp; // limits range of sensor values to between 400 and 800</p>
+                <p>&nbsp; int sensVal = constrain(val, 400, 800);</p>
+                <p>&nbsp; // connects photoresistor values to led brightness values&nbsp;</p>
+                <p>&nbsp; int outVal = map(sensVal, 400, 800, 0, 255);</p>
+                <p><br></p>
+                <p>&nbsp; // if statement for when sensory value is above 600</p>
+                <p>&nbsp; if (sensVal &gt;= 600) {</p>
+                <p>&nbsp; &nbsp; // makes yellow led brightness the photoresistor value</p>
+                <p>&nbsp; &nbsp; analogWrite(6, outVal);</p>
+                <p>&nbsp; &nbsp; // tuns off blue led</p>
+                <p>&nbsp; &nbsp; digitalWrite(9, LOW);</p>
+                <p>&nbsp; // else for when sensory value is below 600</p>
+                <p>&nbsp; } else {</p>
+                <p>&nbsp; &nbsp; // makes blue led brightness the photoresistor value</p>
+                <p>&nbsp; &nbsp; analogWrite(9, outVal);</p>
+                <p>&nbsp; &nbsp; // tuns off yellow led</p>
+                <p>&nbsp; &nbsp; digitalWrite(6, LOW);</p>
+                <p>&nbsp; }</p>
+                <p>}</p>
+            </i>
+            <br>
+            <b><p>Circuit&rsquo;s Operation:</p></b>
+            <p>Finally, here is a gif showing the circuit in action!</p>
+            <p><img src="a3 gif.gif" width="500"></p>
+            <p><br></p>
+        </div>
+        
+    </body>
+</html>
