@@ -1,0 +1,152 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Emma Drapp's HCDE 439 Physical Computing Page!</title> 
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head> 
+    <body> 
+
+        <div class="header">
+            <h1>Emma Drapp's A5: Higher(er) voltage and transistors!</h1>
+
+            <b><p>Schematic:</p></b>
+            <p><img src="IMG_5479 Large.jpeg" width="420"></p>
+            <p>The schematic for this assignment consists of an IR reciever connected to ground, power, and pin 13 as well as a load power (12V power supply) connected to the load (LED strip) which is connected to an N-MOSFET transistor tht is connected to Pin 9 and ground. Note: The IR sensor is connected to 5V power through the arduino since anything more and it will break while the LED strip is connected to a 12V power supply.</p>
+            <br>
+            <p><img src="IMG_5481 Large.jpeg" width="420"></p>
+            <p>The LED strip has 300 LEDs total which is made up of 100 parallel branches with 3 LEDs each. Each parallel branch uses a 180 Ohm resistor and uses 13mA. Thus, with a 12V power that can take up to 2A there can be a maximum of 154 branches with 462 LEDs which I was well under. Furthermore, this circuit currently had a max current of 1.3A. </p>
+            <br>
+            <b><p>Circuit:&nbsp;</p></b>
+            <p>Here is the circuit made from the schematic and calculations above:</p>
+            <p><img src="IMG_5477 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_5478 Large.jpeg" width="400"></p>
+            <br>
+            <b><p>Firmware:</p></b>
+            <p>Here is the code used for A5: Libraries. This code defines the remote buttons and then uses the buttons to light up the LED at different brightnesses via an IR remote library.</p>
+            <br>
+            <p>Note: Serial.println was used to print the values from the remote at first and then used to define the remote buttons</p>
+            <p><img src="IMG_5482 Large.jpeg" width="500"></p>
+            <br>
+            <i>
+                <div>
+                    <div>/*</div>
+                    <div>thanks to Ryan and Max for the help on this assignment</div>
+                    <br />
+                    <div>https://roboticsbackend.com/arduino-ir-remote-controller-tutorial-setup-and-map-buttons/ used as reference for remote code</div>
+                    <div>https://github.com/Arduino-IRremote/Arduino-IRremote/blob/master/examples/SimpleReceiver/SimpleReceiver.ino used for help with IR remote</div>
+                    <br />
+                    <div>*/</div>
+                    <br />
+                    <div>// include remote library</div>
+                    <div>#include &lt;IRremote.h&gt;</div>
+                    <br />
+                    <div>// led variables</div>
+                    <div>int led = 9; // the PWM pin the LED is attached to</div>
+                    <div>int brightness = 5; // how bright the base level LED is</div>
+                    <br />
+                    <div>// define pin connected to the reciever</div>
+                    <div>#define IR_RECEIVE_PIN 13</div>
+                    <br />
+                    <div>//define the values shown in serial print when each of the buttons are pressed to the button pressed</div>
+                    <div>#define IR_BUTTON_0 22 //defines button 0</div>
+                    <div>#define IR_BUTTON_1 12 //defines button 1</div>
+                    <div>#define IR_BUTTON_2 24 //defines button 2</div>
+                    <div>#define IR_BUTTON_3 94 //defines button 3</div>
+                    <div>#define IR_BUTTON_4 8 //defines button 4</div>
+                    <div>#define IR_BUTTON_5 28 //defines button 5</div>
+                    <div>#define IR_BUTTON_6 90 //defines button 6</div>
+                    <div>#define IR_BUTTON_7 66 //defines button 7</div>
+                    <div>#define IR_BUTTON_8 82 //defines button 8</div>
+                    <div>#define IR_BUTTON_9 74 //defines button 9</div>
+                    <div>#define IR_BUTTON_PLAY_PAUSE 64 //defines play/pause button</div>
+                    <br />
+                    <div>void setup() {</div>
+                    <div>// declare pin 9 to be an output:</div>
+                    <div>pinMode(led, OUTPUT);</div>
+                    <div>// initializes serial communication with computer</div>
+                    <div>Serial.begin(9600);</div>
+                    <div>IrReceiver.begin(IR_RECEIVE_PIN); // Starts the receiver, enable feedback LED, take LED feedback pin from the internal boards definition</div>
+                    <div>}</div>
+                    <br />
+                    <div>void loop() {</div>
+                    <div>if(IrReceiver.decode()){ //continually checks for new data for remote and runs if statement if there is data</div>
+                    <div>IrReceiver.resume(); //calls resume so sensor will continue to read new data</div>
+                    <div>int command = IrReceiver.decodedIRData.command; //accesses data collected</div>
+                    <div>switch(command){ //executes different actions based on collected data</div>
+                    <div>case IR_BUTTON_0: { //runs this code if button 0 is pressed</div>
+                    <div>Serial.println("Pressed on button 0"); //prints to serial monitor button 0 is pressed</div>
+                    <div>analogWrite(led, 0); // off</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_1: { //runs this code if button 1 is pressed</div>
+                    <div>Serial.println("Pressed on button 1"); //prints to serial monitor button 1 is pressed</div>
+                    <div>analogWrite(led, (brightness)); // low brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_2: { //runs this code if button 2 is pressed</div>
+                    <div>Serial.println("Pressed on button 2"); //prints to serial monitor button 2 is pressed</div>
+                    <div>analogWrite(led, (brightness * 2)); // x2 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_3: { //runs this code if button 3 is pressed</div>
+                    <div>Serial.println("Pressed on button 3"); //prints to serial monitor button 3 is pressed</div>
+                    <div>analogWrite(led, (brightness * 3)); // x3 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_4: { //runs this code if button 4 is pressed</div>
+                    <div>Serial.println("Pressed on button 4"); //prints to serial monitor button 4 is pressed</div>
+                    <div>analogWrite(led, (brightness * 4)); // x4 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_5: { //runs this code if button 5 is pressed</div>
+                    <div>Serial.println("Pressed on button 5"); //prints to serial monitor button 5 is pressed</div>
+                    <div>analogWrite(led, (brightness * 5)); // x5 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_6: { //runs this code if button 6 is pressed</div>
+                    <div>Serial.println("Pressed on button 6"); //prints to serial monitor button 6 is pressed</div>
+                    <div>analogWrite(led, (brightness * 6)); // x6 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_7: { //runs this code if button 3 is pressed</div>
+                    <div>Serial.println("Pressed on button 7"); //prints to serial monitor button 7 is pressed</div>
+                    <div>analogWrite(led, (brightness * 7)); // x7 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_8: { //runs this code if button 3 is pressed</div>
+                    <div>Serial.println("Pressed on button 8"); //prints to serial monitor button 8 is pressed</div>
+                    <div>analogWrite(led, (brightness * 8)); // x8 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_9: { //runs this code if button 9 is pressed</div>
+                    <div>Serial.println("Pressed on button 9"); //prints to serial monitor button 9 is pressed</div>
+                    <div>analogWrite(led, (brightness * 9)); // x9 brightness</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>case IR_BUTTON_PLAY_PAUSE: { //runs this code if play/pause is pressed</div>
+                    <div>Serial.println("Pressed on button play/pause"); //prints to serial monitor play/pause is pressed</div>
+                    <div>break; //exits from loop</div>
+                    <div>}</div>
+                    <div>default: { //runs this code if unrecognized button is pressed</div>
+                    <div>Serial.println("Button not recognized"); //prints to serial monitor button not recognized</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <div>}</div>
+                </div>
+            </i>
+            <br>
+            <b><p>Circuit&rsquo;s Operation:</p></b>
+            <p>Finally, here is a gif showing the circuit in action!</p>
+            <p><img src="a4 gif.gif" width="500"></p>
+            <p><br></p>
+        </div>
+        
+    </body>
+</html>
