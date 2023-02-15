@@ -15,23 +15,22 @@
             <h1>Emma Drapp's A5: Higher(er) voltage and transistors!</h1>
 
             <b><p>Schematic:</p></b>
-            <p><img src="IMG_5479 Large.jpeg" width="420"></p>
+            <p><img src="IMG_5580 Large.jpeg" width="420"></p>
             <p>The schematic for this assignment consists of an IR reciever connected to ground, power, and pin 13 as well as a load power (12V power supply) connected to the load (LED strip) which is connected to an N-MOSFET transistor tht is connected to Pin 9 and ground. Note: The IR sensor is connected to 5V power through the arduino since anything more and it will break while the LED strip is connected to a 12V power supply.</p>
             <br>
-            <p><img src="IMG_5481 Large.jpeg" width="420"></p>
+            <p><img src="IMG_5579 Large.jpeg" width="420"></p>
             <p>The LED strip has 300 LEDs total which is made up of 100 parallel branches with 3 LEDs each. Each parallel branch uses a 180 Ohm resistor and uses 13mA. Thus, with a 12V power that can take up to 2A there can be a maximum of 154 branches with 462 LEDs which I was well under. Furthermore, this circuit currently had a max current of 1.3A. </p>
             <br>
             <b><p>Circuit:&nbsp;</p></b>
             <p>Here is the circuit made from the schematic and calculations above:</p>
-            <p><img src="IMG_5477 Large.jpeg" width="400"></p>
+            <p><img src="IMG_5576 Large.jpeg" width="400"></p>
             <br>
-            <p><img src="IMG_5478 Large.jpeg" width="400"></p>
+            <p><img src="IMG_5574 Large.jpeg" width="400"></p>
             <br>
             <b><p>Firmware:</p></b>
             <p>Here is the code used for A5: Libraries. This code defines the remote buttons and then uses the buttons to light up the LED at different brightnesses via an IR remote library.</p>
             <br>
             <p>Note: Serial.println was used to print the values from the remote at first and then used to define the remote buttons</p>
-            <p><img src="IMG_5482 Large.jpeg" width="500"></p>
             <br>
             <i>
                 <div>
