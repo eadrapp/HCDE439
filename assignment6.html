@@ -1,0 +1,185 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Emma Drapp's HCDE 439 Physical Computing Page!</title> 
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head> 
+    <body> 
+
+        <div class="header">
+            <h1>Emma Drapp's A6: Talking to the web!</h1>
+
+            <b><p>Schematic:</p></b>
+            <p><img src="IMG_5907 Large.jpeg" width="420"></p>
+            <p>The schematic for this assignment consists of a joystick connected to ground, power, and pin A0 and A2 as well as a red LED and 330 Ohm resistor. The resistor value was decided based on previous calculations when using a red LED.</p>
+            <br>
+            <b><p>Circuit:&nbsp;</p></b>
+            <p>Here is the circuit made from the schematic above:</p>
+            <p><img src="IMG_5902 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_5905 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_5906 Large.jpeg" width="400"></p>
+            <br>
+            <b><p>Firmware:</p></b>
+            <p>Here is the code used for A6. This code sets up a webpage with p5.js that takes input from a joystick connected to the aruduino and draws circles based on that input. The site also logs the x axis value of the mouse and adjusts the brightness of an LED connected to arduino based on that value.</p>
+            <br>
+            <p>Note: The values read with A0 and A2 are the X and Y values logged in the serial communicator and then used to plot circles</p>
+            <br>
+            <b><p>Arduino Code:</p></b>
+            <br>
+            <i>
+                <div>
+                    <div>void setup() {</div>
+                    <div>// initializes serial communication with computer</div>
+                    <div>Serial.begin(9600);</div>
+                    <div>Serial.setTimeout(10); // set the timeout for parseInt</div>
+                    <div>pinMode(5, OUTPUT); //sets pin 5 as led output</div>
+                    <div>}</div>
+                    <br />
+                    <div>void loop() {</div>
+                    <div>// initializes analog pin for x axis on joystick</div>
+                    <div>int s1 = analogRead(A2);</div>
+                    <div>// initializes analog pin for y axis on joystick</div>
+                    <div>int s2 = analogRead(A0);</div>
+                    <div>// bracket for printing of reading</div>
+                    <div>Serial.print("[");</div>
+                    <div>// prints x axis reading</div>
+                    <div>Serial.print(s1);</div>
+                    <div>// print comma</div>
+                    <div>Serial.print(",");</div>
+                    <div>// print y axis reading</div>
+                    <div>Serial.print(s2);</div>
+                    <div>// end bracket for printing of reading</div>
+                    <div>Serial.println("]");</div>
+                    <br />
+                    <div>if(Serial.available() &gt; 0){ // if there's serial data</div>
+                    <div>int inByte = Serial.read(); // read it</div>
+                    <div>Serial.write(inByte); // send it back out as raw binary data</div>
+                    <div>inByte = constrain(inByte, 0, 255); // constrain data to LED brightness values</div>
+                    <div>analogWrite(5, inByte); // use it to set the LED brightness</div>
+                    <div>}</div>
+                    <div>}</div>
+                </div>
+            </i>
+            <br>
+            <b><p>p5.js sketch.js Code:</p></b>
+            <i>
+                <div>
+                    <div>var serial; // variable to hold an instance of the serialport library</div>
+                    <div>var portName = '/dev/tty.usbmodem1421101'; //rename to the name of your port</div>
+                    <div>var dataarray = []; //some data coming in over serial!</div>
+                    <div>var xPos = 0;</div>
+                    <br /><br />
+                    <div>function setup() {</div>
+                    <div>serial = newp5.SerialPort(); // make a new instance of the serialport library</div>
+                    <div>serial.on('list', printList); // set a callback function for the serialport list event</div>
+                    <div>serial.on('connected', serverConnected); // callback for connecting to the server</div>
+                    <div>serial.on('open', portOpen); // callback for the port opening</div>
+                    <div>serial.on('data', serialEvent); // callback for when new data arrives</div>
+                    <div>serial.on('error', serialError); // callback for errors</div>
+                    <div>serial.on('close', portClose); // callback for the port closing</div>
+                    <div>&nbsp;</div>
+                    <div>serial.list(); // list the serial ports</div>
+                    <div>serial.open(portName); // open a serial port</div>
+                    <div>createCanvas(1200, 800); // create canvas</div>
+                    <div>background(0x08, 0x16, 0x40); // set background</div>
+                    <br />
+                    <div>frameRate(30); // reduce frame rate aka rate of dots</div>
+                    <div>}</div>
+                    <div>&nbsp;</div>
+                    <div>// get the list of ports:</div>
+                    <div>function printList(portList) {</div>
+                    <div>// portList is an array of serial port names</div>
+                    <div>for (vari = 0; i &lt; portList.length; i++) {</div>
+                    <div>// Display the list the console:</div>
+                    <div>print(i + " " + portList[i]);</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <br />
+                    <div>function serverConnected() {</div>
+                    <div>print('connected to server.');</div>
+                    <div>}</div>
+                    <div>&nbsp;</div>
+                    <div>function portOpen() {</div>
+                    <div>print('the serial port opened.')</div>
+                    <div>}</div>
+                    <div>&nbsp;</div>
+                    <div>function serialError(err) {</div>
+                    <div>print('Something went wrong with the serial port. ' + err);</div>
+                    <div>}</div>
+                    <div>&nbsp;</div>
+                    <div>function portClose() {</div>
+                    <div>print('The serial port closed.');</div>
+                    <div>}</div>
+                    <br />
+                    <div>function serialEvent() {</div>
+                    <div>if (serial.available()) {</div>
+                    <div>vardatastring = serial.readLine(); // readin some serial</div>
+                    <div>varnewarray; // create newarray variable</div>
+                    <div>try {</div>
+                    <div>newarray = JSON.parse(datastring); // can we parse the serial</div>
+                    <div>if (typeofnewarray == 'object') { //if theres a new array</div>
+                    <div>dataarray = newarray; //set dataaray as newarray</div>
+                    <div>}</div>
+                    <div>console.log("got back " + datastring); //log datastring</div>
+                    <div>} catch(err) {</div>
+                    <div>// got something that's not a json</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <br />
+                    <div>function graphData(newData) {</div>
+                    <div>// map the range of the input to the window height:</div>
+                    <div>varyPos = map(newData, 0, 1023, 0, height);</div>
+                    <div>// draw the line</div>
+                    <div>line(xPos, height, xPos, height - yPos);</div>
+                    <div>// at the edge of the screen, go back to the beginning:</div>
+                    <div>if (xPos &gt;= width) {</div>
+                    <div>xPos = 0;</div>
+                    <div>// clear the screen by resetting the background:</div>
+                    <div>background(0x08, 0x16, 0x40);</div>
+                    <div>} else {</div>
+                    <div>// pass</div>
+                    <div>}</div>
+                    <div>}</div>
+                    <br />
+                    <div>function drawSphere(x, y) {</div>
+                    <div>letdiameter = 40; // set circle size</div>
+                    <div>letxPos = map(x, 0, 1023, 0, width); // set x position</div>
+                    <div>letyPos = map(y, 0, 1023, 0, height); // set y position</div>
+                    <div>letr = Math.random()*255; //random red value for color</div>
+                    <div>letg = Math.random()*255; //random green value for color</div>
+                    <div>letb = Math.random()*255; //random blue value for color</div>
+                    <div>letc = color(r, g, b); //set random color for circle</div>
+                    <div>fill(c); //fill circle with color</div>
+                    <div>circle(xPos, yPos, diameter); //create circle</div>
+                    <div>}</div>
+                    <br />
+                    <div>function draw() {</div>
+                    <div>letx = dataarray[0]; //set x value as joystick x value</div>
+                    <div>lety = dataarray[1]; //set y value as joystick y value</div>
+                    <div>drawSphere(x, y); //draw circles with these values</div>
+                    <br />
+                    <div>serial.write(mouseX); //adjust led based on mouse X position</div>
+                    <div>console.log(mouseX); //log value</div>
+                    <div>}</div>
+                </div>
+            </i>
+            <br>
+            <b><p>Circuit&rsquo;s Operation:</p></b>
+            <p>Finally, here is a gif showing the webpage in action!</p>
+            <p><img src="a5 gif.gif" width="500"></p>
+            <br>
+            <p>Additionally, here is a gif showing the LED in action!</p>
+            <p><img src="a5 gif.gif" width="500"></p>
+            <br>
+        </div>
+        
+    </body>
+</html>
