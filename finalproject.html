@@ -12,11 +12,81 @@
     <body> 
 
         <div class="header">
-            <h1>Emma Drapp's Final Project!</h1>
-
-            <b><p>Project Proposal:</p></b>
+            <h1>Emma Drapp's HCDE439 Final Project: The not annoying smoke detector!</h1>
+            <h2>Project Proposal:</h2>
             <p><img src="Project Proposal.png" width="420"></p>
             <br>
+            <h2>Concept:</h2>
+            <p>A visual smoke detector that turns on lights when it detects smoke!</p>
+            <p>Since my kitchen is smoke prone and we keep our smoke detector unplugged since it constantly beeps unnecessarily, I wanted to build a visual smoke detector instead.</p>
+            <br>
+            <h2>Technical Implementation:</h2>
+            <b><p>Process:</p></b>
+            <p></p>
+            <br>
+            <b><p>Schematic:</p></b>
+            <p><img src="IMG_5580 Large.jpeg" width="420"></p>
+            <p>The schematic for this assignment consists of an MQ2 Smoke Detector connected to ground, power, and analog pin A0 as well as a load power (12V power supply) connected to the load (LED strip) which is connected to an N-MOSFET transistor tht is connected to Pin 9 and ground. Note: The IR sensor is connected to 5V power through the arduino since anything more and it will break while the LED strip is connected to a 12V power supply.</p>
+            <br>
+            <p><img src="IMG_5579 Large.jpeg" width="420"></p>
+            <p>The LED strip has 300 LEDs total which is made up of 100 parallel branches with 3 LEDs each. Each parallel branch uses a 180 Ohm resistor and uses 13mA. Thus, with a 12V power that can take up to 2A there can be a maximum of 154 branches with 462 LEDs which I was well under. Furthermore, this circuit currently had a max current of 1.3A. </p>
+            <br>
+            <b><p>Circuit:&nbsp;</p></b>
+            <p>Here is the circuit made from the schematic and calculations above:</p>
+            <p><img src="IMG_5576 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_5574 Large.jpeg" width="400"></p>
+            <br>
+            <b><p>Firmware:</p></b>
+            <p>Here is the code used for my final project. This code defines the smoke detector threshold value based on the calibration phase and then turns on the lights when the detected values hits the threshold value.</p>
+            <br>
+            <p>Note: The MQ2 Smoke Detector was first calibrated to see what a normal range of values was which for me was anywhere from 9 to around 13, thus giving a bit of leeway I used 15 as my threshold value. </p>
+            <br>
+            <i>
+                <div>
+                    <div>/* this MQ2 sensor documentation was used as a reference for the following code: https://lastminuteengineers.com/mq2-gas-senser-arduino-tutorial/ */</div>
+                    <br />
+                    <div>#define Threshold 15 // define threshold value aka when theres too much smoke</div>
+                    <br />
+                    <div>#define MQ2pin 0 // define pin connected to smoke detector</div>
+                    <br />
+                    <div>float sensorValue; // variable to store smoke detector value</div>
+                    <br />
+                    <div>int led = 9; // the PWM pin the LED is attached to</div>
+                    <br />
+                    <div>void setup() {</div>
+                    <div>pinMode(led, OUTPUT); // initiate led pin</div>
+                    <div>Serial.begin(9600); // sets the serial port to 9600</div>
+                    <div>Serial.println("The smoke detector warming up!"); // lets user know the smoke detector is warming up</div>
+                    <div>delay(20000); // allow the MQ2 to warm up</div>
+                    <div>}</div>
+                    <br />
+                    <div>void loop() {</div>
+                    <div>sensorValue = analogRead(MQ2pin); // read analog input pin 0</div>
+                    <br />
+                    <div>Serial.print("Sensor Value: "); //prints sensor value</div>
+                    <div>Serial.print(sensorValue); //prints sensor value</div>
+                    <br />
+                    <div>if(sensorValue &gt; Threshold) // runs the following code if the smoke detector value is above the threshold</div>
+                    <div>{</div>
+                    <div>Serial.print(" | Smoke detected!"); //says smoke is detected</div>
+                    <div>analogWrite(led, 200); // turns on LED</div>
+                    <div>}</div>
+                    <div>else{</div>
+                    <div>analogWrite(led, 0); // turn off LED</div>
+                    <div>}</div>
+                    <div>&nbsp;</div>
+                    <div>Serial.println(""); // new line</div>
+                    <div>delay(2000); // wait 2s for next reading</div>
+                    <div>}</div>
+                </div>
+            </i>
+            <br>
+            <b><p>Circuit&rsquo;s Operation:</p></b>
+            <p>Finally, here is a gif showing the circuit in action!</p>
+            <p><img src="a5 gif.gif" width="500"></p>
+            <p><br></p>
+        </div>
         
     </body>
 </html>
