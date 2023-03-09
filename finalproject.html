@@ -17,12 +17,20 @@
             <p><img src="Project Proposal.png" width="420"></p>
             <br>
             <h2>Concept:</h2>
-            <p>A visual smoke detector that turns on lights when it detects smoke!</p>
+            <p>A visual smoke detector that detects increased smoke in the air and when a threshold is reached it will turn on lights to notify the user!</p>
             <p>Since my kitchen is smoke prone and we keep our smoke detector unplugged since it constantly beeps unnecessarily, I wanted to build a visual smoke detector instead.</p>
             <br>
             <h2>Technical Implementation:</h2>
             <b><p>Process:</p></b>
-            <p></p>
+            <p>For this project I used an MQ2 smoke detector, LED strip light, a transistor, wires, alligator clip wires, an Arduino, mini bread board, and 12V power source.</p>
+            <br>
+            <p>The project consists of an input device which is the MQ2 smoke detector and an output device which is the LED strip. I used the analog pin A0 on the Arduino and the analogRead function to read the output voltage of the MQ2 sensor which is proportional to the gas concentration in the air. I then calibrated the device and got a set of baseline values and also collected data on values detected when I put a burning piece of paper in front of the device to decide a threshold value to trigger the output device. Once the MQ2 sensor value reaches above the threshold value, the LED strip lights are turned on via pin 9 on the Arduino. The code is written so when the values dip below the threshold again the lights will turn off.             </p>
+            <br>
+            <p>Then, I build a container for the smoke detector to make it more appealing and not have all the wires all over the place because that is also a fire hazard in the kitchen. I used an old shoe box and created a hole for the MQ2 smoke detector sensor as shown below:</p>
+            <br>
+            <p><img src="IMG_6010 Large.jpeg" width="400"></p>
+            <br>
+            <p><img src="IMG_6005 Large.jpeg" width="400"></p>
             <br>
             <b><p>Schematic:</p></b>
             <p><img src="IMG_5997 Large.jpeg" width="420"></p>
@@ -87,6 +95,7 @@
             <iframe width="420" height="315"
             src="https://youtu.be/Z-VHE9_y8PU">
             </iframe>
+            <p>Just incase the iframe doesn't work here is a physical link to the video: https://youtu.be/Z-VHE9_y8PU </p>
             <p><br></p>
         </div>
         
